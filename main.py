@@ -17,19 +17,38 @@ def parseval_energy_theorem(img_path):
     mag_img = np.linalg.norm(img, 2, keepdims=False)
     mag_img_FD = np.linalg.norm(img_FD, 2, keepdims=False)
 
+    # Phase of the Fourier Transform
+    phase_img_FD = np.angle(img_FD)
+
     # Displaying the images
     img_FD_dis = np.log(np.absolute(img_FD))
 
-    # Plotting the images
+    # Plot 1: Original Image and its Fourier Transform
+    plt.figure(figsize=(12, 6))
     plt.subplot(1, 2, 1), plt.imshow(img, cmap="gray")
-    plt.xlabel(f"Energy : {round(mag_img,3)}")
-    plt.title(f"Original Image ({img_path.split("/")[-1]})"), plt.xticks([]), plt.yticks([])
+    plt.xlabel(f"Energy: {round(mag_img, 3)}")
+    plt.title(f"Original Image ({img_path.split('/')[-1]})")
+    plt.xticks([]), plt.yticks([])
 
     plt.subplot(1, 2, 2), plt.imshow(img_FD_dis, cmap="gray")
-    plt.xlabel(f"Energy : {round(mag_img_FD,3)}")
-    plt.title(f"Fourier Transform ({img_path.split("/")[-1]})"), plt.xticks([]), plt.yticks([])
+    plt.xlabel(f"Energy: {round(mag_img_FD, 3)}")
+    plt.title(f"Fourier Transform ({img_path.split('/')[-1]})")
+    plt.xticks([]), plt.yticks([])
+    plt.suptitle("Parseval's Energy Theorem", fontsize=16)
+    plt.show()
 
-    plt.suptitle("Parseval's Energy Theorem")
+    # Plot 2: Magnitude Spectrum
+    plt.figure(figsize=(8, 6))
+    plt.imshow(img_FD_dis, cmap="gray")
+    plt.title(f"Magnitude Spectrum of Fourier Transform ({img_path.split('/')[-1]})")
+    plt.xticks([]), plt.yticks([])
+    plt.show()
+
+    # Plot 3: Phase Spectrum
+    plt.figure(figsize=(8, 6))
+    plt.imshow(phase_img_FD, cmap="gray")
+    plt.title(f"Phase Spectrum of Fourier Transform ({img_path.split('/')[-1]})")
+    plt.xticks([]), plt.yticks([])
     plt.show()
 
 
